@@ -41,9 +41,11 @@ const createHandler = function (specName) {
   let tags = []
   let topLevelScope = {}
   let textForProp = null
+  let currentTagName = null
   const { TYPE, PROP } = getAttrNames(specName)
 
   const onopentag = function (tagName, attribs) {
+    currentTagName = tagName
     let currentScope = scopes[scopes.length - 1]
     let tag = false
 
@@ -96,11 +98,14 @@ const createHandler = function (specName) {
     tags.push(tag)
   }
   const ontext = function (text) {
+    if (['script', 'style'].indexOf(currentTagName) !== -1) {
+      text = ''
+    }
     if (textForProp) {
       if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
-        scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += text.trim()
+        scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += text
       } else {
-        scopes[scopes.length - 1][textForProp] += text.trim()
+        scopes[scopes.length - 1][textForProp] += text
       }
     }
   }
