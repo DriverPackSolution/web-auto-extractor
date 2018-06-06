@@ -9,6 +9,8 @@ function getPropValue (tagName, attribs, TYPE, PROP) {
     return attribs.content.trim()
   } else if (attribs[PROP] === 'image' && attribs.src) {
     return attribs.src.trim()
+  } else if (tagName === 'img' && attribs.src) {
+    return attribs.src.trim()
   } else {
     return null
   }
