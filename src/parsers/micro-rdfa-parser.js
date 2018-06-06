@@ -100,6 +100,8 @@ const createHandler = function (specName) {
   const ontext = function (text) {
     if (['script', 'style'].indexOf(currentTagName) !== -1) {
       text = ''
+    } else if (['li', 'ul'].indexOf(currentTagName) !== -1) {
+      text = `<${currentTagName}>${text}</${currentTagName}>`
     }
     if (textForProp) {
       if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
