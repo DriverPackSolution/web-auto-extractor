@@ -1,6 +1,6 @@
 {
   "name": "@drp/web-auto-extractor",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Automatically extracts structured information from webpages",
   "main": "dist/index.js",
   "scripts": {
