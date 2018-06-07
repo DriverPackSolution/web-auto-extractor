@@ -30,6 +30,8 @@ const getAttrNames = (specName) => {
   return { TYPE, PROP }
 }
 
+const importantTags = ['p', 'a', 'ul', 'li']
+
 const getType = (typeString) => {
   const match = (/(.*\/)(\w+)/g).exec(typeString)
   return {
@@ -97,13 +99,20 @@ const createHandler = function (specName) {
         }
       }
     }
+
+    if (textForProp && (importantTags.indexOf(tagName) !== -1)) {
+      if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
+        scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += `<${tagName}>`
+      } else {
+        scopes[scopes.length - 1][textForProp] += `<${tagName}>`
+      }
+    }
+
     tags.push(tag)
   }
   const ontext = function (text) {
     if (['script', 'style'].indexOf(currentTagName) !== -1) {
       text = ''
-    } else if (['li', 'ul'].indexOf(currentTagName) !== -1) {
-      text = `<${currentTagName}>${text}</${currentTagName}>`
     }
     if (textForProp) {
       if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
@@ -127,6 +136,14 @@ const createHandler = function (specName) {
       })
     } else if (tag === PROP) {
       textForProp = false
+    }
+
+    if (textForProp && (importantTags.indexOf(tagname) !== -1)) {
+      if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
+        scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += `</${tagname}>`
+      } else {
+        scopes[scopes.length - 1][textForProp] += `</${tagname}>`
+      }
     }
   }
 
