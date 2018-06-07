@@ -30,7 +30,23 @@ const getAttrNames = (specName) => {
   return { TYPE, PROP }
 }
 
-const importantTags = ['p', 'a', 'ul', 'li']
+const importantTags = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'p',
+  'a',
+  'ul',
+  'li',
+  'b',
+  'table',
+  'caption',
+  'tr',
+  'th',
+  'td'
+]
 
 const getType = (typeString) => {
   const match = (/(.*\/)(\w+)/g).exec(typeString)
@@ -101,10 +117,16 @@ const createHandler = function (specName) {
     }
 
     if (textForProp && (importantTags.indexOf(tagName) !== -1)) {
-      if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
-        scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += `<${tagName}>`
+      let openTagString
+      if (tagName === 'a' && attribs.href) {
+        openTagString = `<a href="${attribs.href}">`
       } else {
-        scopes[scopes.length - 1][textForProp] += `<${tagName}>`
+        openTagString = `<${tagName}>`
+      }
+      if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
+        scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += openTagString
+      } else {
+        scopes[scopes.length - 1][textForProp] += openTagString
       }
     }
 
