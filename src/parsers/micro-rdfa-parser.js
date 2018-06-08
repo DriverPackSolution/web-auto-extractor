@@ -116,7 +116,7 @@ const createHandler = function (specName) {
       }
     }
 
-    if (textForProp && (importantTags.indexOf(tagName) !== -1)) {
+    if (textForProp && (['headline', 'name'].indexOf(textForProp) === -1) && (importantTags.indexOf(tagName) !== -1)) {
       let openTagString
       if (tagName === 'a' && attribs.href) {
         openTagString = `<a href="${attribs.href}">`
@@ -160,7 +160,7 @@ const createHandler = function (specName) {
       textForProp = false
     }
 
-    if (textForProp && (importantTags.indexOf(tagname) !== -1)) {
+    if (textForProp && (['headline', 'name'].indexOf(textForProp) === -1) && (importantTags.indexOf(tagname) !== -1)) {
       if (Array.isArray(scopes[scopes.length - 1][textForProp])) {
         scopes[scopes.length - 1][textForProp][scopes[scopes.length - 1][textForProp].length - 1] += `</${tagname}>`
       } else {
