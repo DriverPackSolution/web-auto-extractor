@@ -116,7 +116,7 @@ const createHandler = function (specName) {
       }
     }
 
-    if (textForProp && (['headline', 'name'].indexOf(textForProp) === -1) && (importantTags.indexOf(tagName) !== -1)) {
+    if (tag !== PROP && textForProp && (['headline', 'name'].indexOf(textForProp) === -1) && (importantTags.indexOf(tagName) !== -1)) {
       let openTagString
       if (tagName === 'a' && attribs.href) {
         openTagString = `<a href="${attribs.href}">`
