@@ -45,7 +45,8 @@ const importantTags = [
   'caption',
   'tr',
   'th',
-  'td'
+  'td',
+  'div'
 ]
 
 const getType = (typeString) => {
