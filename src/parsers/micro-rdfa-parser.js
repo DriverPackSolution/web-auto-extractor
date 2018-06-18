@@ -46,7 +46,8 @@ const importantTags = [
   'tr',
   'th',
   'td',
-  'div'
+  'div',
+  'img'
 ]
 
 const getType = (typeString) => {
@@ -121,6 +122,8 @@ const createHandler = function (specName) {
       let openTagString
       if (tagName === 'a' && attribs.href) {
         openTagString = `<a href="${attribs.href}">`
+      } else if (tagName === 'img') {
+        openTagString = `<img class="schema-image-illustration" src="${attribs.src}" />`
       } else {
         openTagString = `<${tagName}>`
       }
