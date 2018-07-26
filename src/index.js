@@ -19,6 +19,7 @@ export default function () {
     }
 
     return {
+      title: $html('title').text(),
       metatags: MetaTagsParser($html),
       microdata: MicroRdfaParser(html, 'micro'),
       rdfa: MicroRdfaParser(html, 'rdfa'),
