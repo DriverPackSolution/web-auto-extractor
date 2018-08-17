@@ -1,4 +1,5 @@
 import $ from 'cheerio'
+import LinkParser from './parsers/link-parser'
 import MetaTagsParser from './parsers/metatag-parser'
 import MicroRdfaParser from './parsers/micro-rdfa-parser'
 import JsonldParser from './parsers/jsonld-parser'
@@ -20,6 +21,7 @@ export default function () {
 
     return {
       title: $html('title').text(),
+      links: LinkParser($html),
       metatags: MetaTagsParser($html),
       microdata: MicroRdfaParser(html, 'micro'),
       rdfa: MicroRdfaParser(html, 'rdfa'),
